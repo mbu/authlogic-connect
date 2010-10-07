@@ -42,6 +42,11 @@ module AuthlogicConnect::Oauth
           token = token_class.find_by_key_or_token(hash[:key], hash[:token], :include => [:user]) # some weird error if I leave out the include)
           if token
             self.attempted_record = token.user
+            # update token in access_tokens (key is the same but token has changed)
+            if (hash[:token] != token.token)
+              token.token = hash[:token]
+              token.save
+            end
           elsif auto_register?
             self.attempted_record = klass.new
             self.attempted_record.access_tokens << token_class.new(hash)
