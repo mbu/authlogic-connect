@@ -22,7 +22,7 @@ module AuthlogicConnect::Common::Variables
   
   def auth_session
     return nil unless auth_controller?
-    auth_controller.session.symbolize_keys!
+    #auth_controller.session.symbolize_keys!
     auth_controller.session.keys.each do |key|
       auth_controller.session[key.to_s] = auth_controller.session.delete(key) if key.to_s =~ /^OpenID/
     end
