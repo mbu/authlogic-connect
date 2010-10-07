@@ -21,7 +21,7 @@ class OauthToken < AccessToken
   end
   
   def get(path, headers = {})
-    client.get(path, headers)
+    client.get(path, {}, headers)
   end
   
   def post(path, body = "", headers = {})
